@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Play1Move : MonoBehaviour
+public class Play2move : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -30,46 +30,46 @@ public class Play1Move : MonoBehaviour
         x = transform.position.x;
         y = transform.position.y;
         actionTimer += Time.deltaTime;
-        if (Input.GetKey("w") && Input.GetKey("d"))
+        if (Input.GetKey("up") && Input.GetKey("right"))
         {
             transform.Translate(normalizedSpeed * Time.deltaTime, normalizedSpeed * Time.deltaTime, 0);
         }
-        else if (Input.GetKey("s") && Input.GetKey("d"))
+        else if (Input.GetKey("down") && Input.GetKey("right"))
         {
             transform.Translate(normalizedSpeed * Time.deltaTime, -normalizedSpeed * Time.deltaTime, 0);
         }
-        else if (Input.GetKey("w") && Input.GetKey("a"))
+        else if (Input.GetKey("up") && Input.GetKey("left"))
         {
             transform.Translate(-normalizedSpeed * Time.deltaTime, normalizedSpeed * Time.deltaTime, 0);
         }
-        else if (Input.GetKey("s") && Input.GetKey("a"))
+        else if (Input.GetKey("down") && Input.GetKey("left"))
         {
             transform.Translate(-normalizedSpeed * Time.deltaTime, -normalizedSpeed * Time.deltaTime, 0);
         }
         else
         {
-            if (Input.GetKey("w"))
+            if (Input.GetKey("up"))
             {
                 transform.Translate(0, moveSpeed * Time.deltaTime, 0);
                 facedir = 0;
             }
-            if (Input.GetKey("s"))
+            if (Input.GetKey("down"))
             {
                 transform.Translate(0, -moveSpeed * Time.deltaTime, 0);
                 facedir = 2;
             }
-            if (Input.GetKey("d"))
+            if (Input.GetKey("right"))
             {
                 transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
                 facedir = 1;
             }
-            if (Input.GetKey("a"))
+            if (Input.GetKey("left"))
             {
                 transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
                 facedir = 3;
             }
         }
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("[0]"))
         {
             if (actionTimer > 0.3)
             {
