@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5
+guid: 48131d8179959ac43aeae942e6e427f0
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -1454,27 +1454,27 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
   boneGOs:
-  - go: {fileID: -372901969675033242, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -372901969675033242, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 0
-  - go: {fileID: -5764234778301904581, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -5764234778301904581, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 1
-  - go: {fileID: -2580062596196381820, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -2580062596196381820, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 2
-  - go: {fileID: -2016256195649753335, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -2016256195649753335, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 3
-  - go: {fileID: -4484586535728857491, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -4484586535728857491, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 4
-  - go: {fileID: 5432397795020939675, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: 5432397795020939675, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 5
-  - go: {fileID: 5841326604329089141, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: 5841326604329089141, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 6
-  - go: {fileID: -3272047299329105481, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -3272047299329105481, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 7
-  - go: {fileID: -8504496188554507424, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -8504496188554507424, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 8
-  - go: {fileID: -2328501233169800190, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: -2328501233169800190, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 9
-  - go: {fileID: 2120221899788870208, guid: 3e0d9c9f0bdd8704daeeee60ffadf3a5, type: 3}
+  - go: {fileID: 2120221899788870208, guid: 48131d8179959ac43aeae942e6e427f0, type: 3}
     index: 10
   generateGOHierarchy: 0
   textureAssetName: boy Texture
