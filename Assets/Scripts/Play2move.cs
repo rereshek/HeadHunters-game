@@ -69,7 +69,7 @@ public class Play2move : MonoBehaviour
                 facedir = 3;
             }
         }
-        if (Input.GetKeyDown("g"))
+        if (Input.GetKeyDown("l"))
         {
             if (actionTimer > 0.3)
             {
