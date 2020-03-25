@@ -57,15 +57,15 @@ public class Player : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D (Collision2D other)
-    {
+   void OnCollisionEnter2D (Collision2D other){
 
-        if (other.gameObject.name.Contains("Enemy")) {
-            Debug.Log("Hit");
-        }
-        if (gameObject.CompareTag("Edge"))
-        {
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        }
-    }
+	        if (other.gameObject.name.Contains("Enemy")) {
+	            Debug.Log("Hit");
+	            
+	        }
+	        if (gameObject.CompareTag("Edge"))
+	        {
+	            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+	        }
+    	}
 }

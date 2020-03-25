@@ -69,6 +69,8 @@ public class Play1Move : MonoBehaviour
                 facedir = 3;
             }
         }
+        
+        
         if (Input.GetKeyDown("space"))
         {
             if (actionTimer > 0.3)
@@ -95,6 +97,6 @@ public class Play1Move : MonoBehaviour
                 actionTimer = 0;
             }
         }
-
+		
     }
 }
