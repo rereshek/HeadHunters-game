@@ -17,9 +17,9 @@ TagManager:
   - UI
   - 
   - 
-  - Player1
+  - TreesAndHuts
   - Player2
-  - 
+  - Player1
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Trees
+    uniqueID: 3615578899
     locked: 0

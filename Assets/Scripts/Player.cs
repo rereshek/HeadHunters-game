@@ -4,68 +4,190 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
-    public float speed = 3.0f;
+
+    public float speed = 4.0f;
     public int pHealth = 100;
+    int pFoodCount = 0;
+    public int playerID;
+    public int pMaxHealth;
+
+    public KeyCode up;
+    public KeyCode down;
+    public KeyCode left;
+    public KeyCode right;
+    public KeyCode escape;
+    public KeyCode heal;
+
+    public bool hasHealed;
+
+    public bool isFighting;
+    public bool escaping;
+
+    public float escapingTime;
+    private float maxEscapingTime;
+
+    public GameObject foodDrop;
+
     // Start is called before the first frame update
     void Start()
     {
+        hasHealed = false;
        
+        gameObject.SetActive(true);
+        if (playerID == 1)
+        {
+            pFoodCount = GlobalDataManager.Instance.player1Food;
+            pHealth = GlobalDataManager.Instance.player1Health;
+            pMaxHealth = GlobalDataManager.Instance.p1MaxHealth;
+            AddFood(0);
+            ChangeHealth(0);
+            
+        }
+        if (playerID == 2)
+        {
+            pFoodCount = GlobalDataManager.Instance.player2Food;
+            pHealth = GlobalDataManager.Instance.player2Health;
+            pMaxHealth = GlobalDataManager.Instance.p2MaxHealth;
+            AddFood(0);
+            ChangeHealth(0);
+        }
+
+        isFighting = false;
+        escaping = false;
+        maxEscapingTime = escapingTime;
+
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(gameObject.name == "Player1")
+        Vector2 newDirection = Vector2.zero;
+
+        //Only move if not fighting
+        if (!isFighting || escaping)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(up))
             {
-                transform.Translate(Vector2.up * Time.deltaTime * speed);
+                newDirection += Vector2.up;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(right))
             {
-                transform.Translate(Vector2.right * Time.deltaTime * speed);
+                newDirection += Vector2.right;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(down))
             {
-                transform.Translate(Vector2.down * Time.deltaTime * speed);
+                newDirection += Vector2.down;
             }
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(left))
             {
-                transform.Translate(Vector2.left * Time.deltaTime * speed);
+                newDirection += Vector2.left;
+            }
+            
+            transform.Translate(newDirection.normalized * speed * Time.deltaTime);
+        }
+        else if(Input.GetKey(escape) && pFoodCount >= 5 && isFighting)
+        {
+            ThrowFood();
+            escaping = true;
+        }
+
+        if (escaping)
+        {
+            escapingTime -= Time.deltaTime;
+            if (escapingTime <= 0f)
+            {
+                escapingTime = maxEscapingTime;
+                escaping = false;
+                isFighting = false;
             }
         }
-        if(gameObject.name == "Player2")
+        if(!isFighting && !escaping)
         {
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(heal) && pFoodCount >= 15 && !hasHealed)
             {
-                transform.Translate(Vector2.up * Time.deltaTime * speed);
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.Translate(Vector2.right * Time.deltaTime * speed);
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                transform.Translate(Vector2.down * Time.deltaTime * speed);
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                transform.Translate(Vector2.left * Time.deltaTime * speed);
+                DropFood(15);
+                Heal();
+                hasHealed = true;
             }
         }
-        
     }
 
-    void OnCollisionEnter2D (Collision2D other)
+    public void AddFood(int food)
     {
+        FoodUIData newFoodData;
+        //Add food to the players count and update the UI
+        pFoodCount += food;
+        newFoodData.foodCount = pFoodCount;
+        newFoodData.playerID = playerID;
+        EventSystem.Instance.FoodCollected(newFoodData);
 
-        if (other.gameObject.name.Contains("Enemy")) {
-            Debug.Log("Hit");
-        }
-        if (gameObject.CompareTag("Edge"))
+    }
+
+    public void DropFood(int food)
+    {
+        //Delete food and update the UI
+        //Also need to stop fighting - tell the enemy as well so they pause while they pick up the food
+        FoodUIData newFoodData;
+        //Add food to the players count and update the UI
+        pFoodCount -= food;
+        newFoodData.foodCount = pFoodCount;
+        newFoodData.playerID = playerID;
+        EventSystem.Instance.FoodCollected(newFoodData);
+    }
+
+    private void ThrowFood()
+    {
+        Vector3 spawnpos = new Vector3(0, 3, 0);
+
+        //Instantiate new food object away from player
+        GameObject newFoodDrop = Instantiate(foodDrop, this.gameObject.transform, false);
+        newFoodDrop.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+        spawnpos = newFoodDrop.transform.position;
+        spawnpos.y += 3f;
+        newFoodDrop.transform.position = spawnpos;
+        DropFood(5);
+    }
+    public void SaveData()
+    {
+        if (playerID == 1)
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            GlobalDataManager.Instance.player1Food = pFoodCount;
+            GlobalDataManager.Instance.player1Health = pHealth;
+            GlobalDataManager.Instance.p1MaxHealth = pMaxHealth;
         }
+        if (playerID == 2)
+        {
+            GlobalDataManager.Instance.player2Food = pFoodCount;
+            GlobalDataManager.Instance.player2Health = pHealth;
+            GlobalDataManager.Instance.p2MaxHealth = pMaxHealth;
+        }
+
+    }
+
+    public void ChangeHealth(int health)
+    {
+        HealthUIData newHealthData;
+        //Add food to the players count and update the UI
+        pHealth -= health;
+        newHealthData.health = pHealth;
+        newHealthData.playerID = playerID;
+        newHealthData.maxHealth = pMaxHealth;
+        EventSystem.Instance.HealthChanged(newHealthData);
+    }
+
+    public void Heal()
+    {
+        pHealth += 50;
+        if (pHealth > pMaxHealth)
+        {
+            pHealth = pMaxHealth;
+        }
+        HealthUIData newHealthData;
+              
+        newHealthData.health = pHealth;
+        newHealthData.playerID = playerID;
+        newHealthData.maxHealth = pMaxHealth;
+        EventSystem.Instance.HealthChanged(newHealthData);
     }
 }
