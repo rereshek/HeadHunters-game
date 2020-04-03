@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyFood : MonoBehaviour
 {
-   public void BinFood ()
+    public void BinFood()
     {
         Destroy(this.gameObject);
     }

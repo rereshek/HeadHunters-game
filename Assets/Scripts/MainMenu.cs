@@ -41,12 +41,12 @@ public class MainMenu : MonoBehaviour
 		if (start)
 			{
 				//transitions.TransitionToLevel(1);
-				Debug.Log("lvl1");
+				//Debug.Log("lvl1");
 			}
 			if (quit)
 			{
 				Application.Quit();
-				Debug.Log("quit");
+				//Debug.Log("quit");
 			}
 			//if (htp)
 			//{	

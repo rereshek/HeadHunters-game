@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
 
     public float speed = 4.0f;
-    public int pHealth = 100;
+    public int pHealth;
     int pFoodCount = 0;
     public int playerID;
     public int pMaxHealth;
@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
 
     public bool hasHealed;
 
-    public bool isFighting;
+    public bool isFighting = false;
+    public int isFightingFoeID;
     public bool escaping;
 
     public float escapingTime;
@@ -28,31 +29,42 @@ public class Player : MonoBehaviour
 
     public GameObject foodDrop;
 
+    public int pMaxDamage;
+
+    public int pMinionCount;
+
+    public Animator playerAnim;
+
     // Start is called before the first frame update
     void Start()
     {
         hasHealed = false;
-       
         gameObject.SetActive(true);
         if (playerID == 1)
         {
             pFoodCount = GlobalDataManager.Instance.player1Food;
             pHealth = GlobalDataManager.Instance.player1Health;
             pMaxHealth = GlobalDataManager.Instance.p1MaxHealth;
+            pMaxDamage = GlobalDataManager.Instance.p1Maxdamage;
+            pMinionCount = GlobalDataManager.Instance.p1MinionCount;
+
             AddFood(0);
             ChangeHealth(0);
-            
+
         }
         if (playerID == 2)
         {
             pFoodCount = GlobalDataManager.Instance.player2Food;
             pHealth = GlobalDataManager.Instance.player2Health;
             pMaxHealth = GlobalDataManager.Instance.p2MaxHealth;
+            pMaxDamage = GlobalDataManager.Instance.p2Maxdamage;
+            pMinionCount = GlobalDataManager.Instance.p2MinionCount;
+
             AddFood(0);
             ChangeHealth(0);
         }
 
-        isFighting = false;
+        SetFighting(false);
         escaping = false;
         maxEscapingTime = escapingTime;
 
@@ -60,9 +72,18 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         Vector2 newDirection = Vector2.zero;
+
+        //Only move if not fighting
+        Vector3 currentScale = transform.localScale;
+        bool isWalking = false;
+
 
         //Only move if not fighting
         if (!isFighting || escaping)
@@ -70,26 +91,31 @@ public class Player : MonoBehaviour
             if (Input.GetKey(up))
             {
                 newDirection += Vector2.up;
+                isWalking = true;
             }
             if (Input.GetKey(right))
             {
                 newDirection += Vector2.right;
+                currentScale.x = Mathf.Abs(currentScale.x);
+                isWalking = true;
             }
             if (Input.GetKey(down))
             {
                 newDirection += Vector2.down;
+                isWalking = true;
             }
             if (Input.GetKey(left))
             {
                 newDirection += Vector2.left;
+                currentScale.x = Mathf.Abs(currentScale.x) * -1f;
+                isWalking = true;
             }
-            
-            transform.Translate(newDirection.normalized * speed * Time.deltaTime);
         }
-        else if(Input.GetKey(escape) && pFoodCount >= 5 && isFighting)
+        if (Input.GetKey(escape) && pFoodCount >= 5 && isFighting)
         {
             ThrowFood();
             escaping = true;
+            StartStopFightingAnimation(false);
         }
 
         if (escaping)
@@ -99,10 +125,13 @@ public class Player : MonoBehaviour
             {
                 escapingTime = maxEscapingTime;
                 escaping = false;
-                isFighting = false;
+                SetFighting(false);
             }
         }
-        if(!isFighting && !escaping)
+        transform.localScale = currentScale;
+        transform.Translate(newDirection.normalized * speed * Time.deltaTime);
+        playerAnim.SetBool("isWalking", isWalking);
+        if (!isFighting && !escaping)
         {
             if (Input.GetKey(heal) && pFoodCount >= 15 && !hasHealed)
             {
@@ -150,17 +179,24 @@ public class Player : MonoBehaviour
     }
     public void SaveData()
     {
+        
         if (playerID == 1)
         {
+            MinionCount(playerID);
             GlobalDataManager.Instance.player1Food = pFoodCount;
             GlobalDataManager.Instance.player1Health = pHealth;
-            GlobalDataManager.Instance.p1MaxHealth = pMaxHealth;
+            //GlobalDataManager.Instance.p1MaxHealth = pMaxHealth;
+            GlobalDataManager.Instance.p1Maxdamage = pMaxDamage;
+            GlobalDataManager.Instance.p1MinionCount = pMinionCount;
         }
         if (playerID == 2)
         {
+            MinionCount(playerID);
             GlobalDataManager.Instance.player2Food = pFoodCount;
             GlobalDataManager.Instance.player2Health = pHealth;
-            GlobalDataManager.Instance.p2MaxHealth = pMaxHealth;
+            //GlobalDataManager.Instance.p2MaxHealth = pMaxHealth;
+            GlobalDataManager.Instance.p2Maxdamage = pMaxDamage;
+            GlobalDataManager.Instance.p2MinionCount = pMinionCount;
         }
 
     }
@@ -184,10 +220,38 @@ public class Player : MonoBehaviour
             pHealth = pMaxHealth;
         }
         HealthUIData newHealthData;
-              
+
         newHealthData.health = pHealth;
         newHealthData.playerID = playerID;
         newHealthData.maxHealth = pMaxHealth;
         EventSystem.Instance.HealthChanged(newHealthData);
     }
+
+    public void MinionCount(int foodCount)
+    {
+        float calculate = foodCount / 5;
+        int result = (int)Mathf.Floor(calculate);
+        pMinionCount = result;
+    }
+
+    public void SetFighting(bool isPlayerFighting, float direction = 0f, int foeID = 0)
+    {
+        Vector3 localScale = transform.localScale;
+        isFighting = isPlayerFighting;
+        isFightingFoeID = foeID;
+        //Debug.Log("isFighting: " + isFighting);
+        StartStopFightingAnimation(isPlayerFighting);
+        if (direction != 0f)
+        {
+            localScale.x = Mathf.Abs(localScale.x) * direction;
+            transform.localScale = localScale;
+        }
+    }
+
+    private void StartStopFightingAnimation(bool fighting)
+    {
+        playerAnim.SetBool("isFighting", fighting);
+    }
+
+    
 }

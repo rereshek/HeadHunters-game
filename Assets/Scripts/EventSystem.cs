@@ -23,8 +23,15 @@ public struct EnemyUIData
 {
     public int enemyID;
     public bool showUI;
+    public int eHealth;
+    public int eMaxHealth;
 }
 
+public struct MinionUIData
+{
+    public int minionCount;
+    public int playerID;
+}
 public class EventSystem : MonoBehaviour
 {
     public static EventSystem Instance;
@@ -32,17 +39,17 @@ public class EventSystem : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
-        }    
+        }
     }
 
     public event Action<FoodUIData> OnFoodCollected;
 
     public void FoodCollected(FoodUIData foodData)
     {
-        if(OnFoodCollected != null)
+        if (OnFoodCollected != null)
         {
             OnFoodCollected(foodData);
         }
@@ -56,7 +63,7 @@ public class EventSystem : MonoBehaviour
         {
             onLeavingIsland();
         }
-        
+
     }
 
     public event Action<HealthUIData> OnHealthChanged;
@@ -71,12 +78,32 @@ public class EventSystem : MonoBehaviour
 
 
     public event Action<EnemyUIData> OnEnemyCombatChange;
-    
+
     public void ShowEnemyUI(EnemyUIData enemyUIData)
     {
-        if(OnEnemyCombatChange != null)
+        if (OnEnemyCombatChange != null)
         {
             OnEnemyCombatChange(enemyUIData);
+        }
+    }
+
+    public event Action<HealthUIData> OnHealthBarUpdate;
+
+    public void UpdateHealthCount(HealthUIData healthUI)
+    {
+        if (OnHealthBarUpdate != null)
+        {
+            OnHealthBarUpdate(healthUI);
+        }
+    }
+
+    public event Action<MinionUIData> OnMinionUIUpdate;
+
+    public void UpdateMinionCount(MinionUIData minionUI)
+    {
+        if(OnMinionUIUpdate != null)
+        {
+            OnMinionUIUpdate(minionUI);
         }
     }
 }

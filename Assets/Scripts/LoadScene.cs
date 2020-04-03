@@ -6,48 +6,75 @@ using TMPro;
 
 public class LoadScene : MonoBehaviour
 {
-	public string nextScene;
-	public Player player1;
-	public Player player2;
+    public string nextScene;
+    private Player player1;
+    private Player player2;
 
-    public float waitToLoad = 2f;
+    private float waitToLoad = 2f;
 
     public TextMeshProUGUI nextLevelText;
 
+    public bool transitioned = false;
+
     public void Start()
-	{
-        //What needs to be done here
-        //
+    {
+        Debug.Log("Called LoadScene::Start");
         EventSystem.Instance.onLeavingIsland += OnLoadNextScene;
-        //player1 = GameObject.FindWithTag("Player1").GetComponent<Player>();
-        //player2 = GameObject.FindWithTag("Player2").GetComponent<Player>();
-
+        if(SceneManager.GetActiveScene().name != "EndGame" && SceneManager.GetActiveScene().name != "TransitionScene")
+        {            
+            player1 = GameObject.FindWithTag("Player1").GetComponent<Player>();
+            player2 = GameObject.FindWithTag("Player2").GetComponent<Player>();
+        }
     }
-	
-	public void OnLoadNextScene()
-	{
-        Debug.Log("OnLoadNextScene");
-        //Save player 1 data
-		player1.SaveData();
-		
-		//Save player 2 data
-		player2.SaveData();
 
-        nextLevelText.gameObject.SetActive(true);
+    public void OnLoadNextScene()
+    {
+        Debug.Log("********LOADING NEXT SCENE: " + SceneManager.GetActiveScene().name + " ************");
+        if (SceneManager.GetActiveScene().name != "EndGame" && SceneManager.GetActiveScene().name != "TransitionScene")
+        {
+            //Save player 1 data
+            player1.SaveData();
 
+            //Save player 2 data
+            player2.SaveData();
+
+            nextLevelText.gameObject.SetActive(true);
+        }
+        //if(SceneManager.GetActiveScene().name == "TransitionScene")
+        //{
+        //    waitToLoad = 18f;
+        //}
+        //if (SceneManager.GetActiveScene().name.Contains("Level"))
+        //{
+        waitToLoad = 2f;
+        //}
         //Load the next scene
-        StartCoroutine("LoadSceneCo");
+        StartCoroutine(LoadSceneCo());
 
 
     }
-
 
     public IEnumerator LoadSceneCo()
     {
-        yield return new WaitForSeconds(waitToLoad);
-        EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
-        SceneManager.LoadScene(nextScene);
-
+        Debug.Log("Current scene: " + SceneManager.GetActiveScene().name);
+        yield return new WaitForSecondsRealtime(waitToLoad);
+        //if(transitioned && SceneManager.GetActiveScene().name == "TransitionScene" && SceneManager.GetActiveScene().name != "EndGame" && GlobalDataManager.Instance.Levels.Count != 0)
+        if (GlobalDataManager.Instance.Levels.Count != 0)
+        { 
+            Debug.Log("Loading transition from" + SceneManager.GetActiveScene().name);
+            EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
+            GlobalDataManager.Instance.Levels.Remove(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("TransitionScene");
+        }
+        else if(GlobalDataManager.Instance.Levels.Count == 0)
+        {
+            Debug.Log("End game from " + SceneManager.GetActiveScene().name);
+            EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
+            SceneManager.LoadScene("EndGame");
+        }
     }
-
+    private void OnDestroy()
+    {
+        //EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
+    }
 }

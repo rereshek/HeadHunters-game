@@ -6,18 +6,22 @@ public enum EnemyState { Idle, ChasingP1, ChasingP2, Fighting, Dead }
 
 public class Enemy : MonoBehaviour
 {
-    public Player player1;
-    public Player player2;
+    private Player player1;
+    private Player player2;
 
     public float enemySpeed = 2.0f;
     public int eHealth = 250;
     public EnemyState eState;
     public int enemyID;
-    public int eMaxHealth;
+    public int eMaxHealth = 250;
 
     public float distanceToP1;
     public float distanceToP2;
 
+    public int eMaxDamage;
+
+    public Animator enemyAnim;
+    public GameObject enemyGFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +29,70 @@ public class Enemy : MonoBehaviour
         distanceToP1 = Mathf.Infinity;
         distanceToP2 = Mathf.Infinity;
         eMaxHealth = eHealth;
+
+        player1 = GameObject.FindWithTag("Player1").GetComponent<Player>();
+        player2 = GameObject.FindWithTag("Player2").GetComponent<Player>();
+
+        enemyAnim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("eState: " + eState.ToString());
+        
+        Vector3 enemyScale = enemyGFX.transform.localScale;
+        float localScale = enemyGFX.transform.localScale.x;
+        switch (eState)
+        {
+            case EnemyState.Fighting:
+                enemyAnim.SetBool("Fighting", true);
+                enemyAnim.SetBool("Walking", false);
+                break;
+            case EnemyState.ChasingP1:
+                enemyAnim.SetBool("Fighting", false);
+                enemyAnim.SetBool("Walking", true);
+                break;
+            case EnemyState.ChasingP2:
+                enemyAnim.SetBool("Fighting", false);
+                enemyAnim.SetBool("Walking", true);
+                break;
+            case EnemyState.Dead:
+                enemyAnim.SetBool("Fighting", false);
+                enemyAnim.SetBool("Walking", false);
+                break;
+            default:
+                enemyAnim.SetBool("Fighting", false);
+                enemyAnim.SetBool("Walking", false);
+                break;
+        }
+        if (eState == EnemyState.ChasingP1)
+        {
+            if (player1.transform.position.x > gameObject.transform.position.x)
+            {
+                localScale = 1f;
+            }
+            else
+            {
+                localScale = -1f;
+            }
+        }
+        if (eState == EnemyState.ChasingP2)
+        {
+            if (player2.transform.position.x > gameObject.transform.position.x)
+            {
+                localScale = 1f;
+            }
+            else
+            {
+                localScale = -1f;
+            }
+        }
+        enemyScale.x = localScale;
+        enemyGFX.transform.localScale = enemyScale;
     }
 
     void OnTriggerStay2D(Collider2D col)
     {
-        //gameObject.GetComponent<Rigidbody2D>().drag = 0;
         float distanceToTarget = (col.gameObject.transform.position - transform.position).magnitude;
         if (col.gameObject.CompareTag("Player1"))
         {
@@ -61,6 +118,7 @@ public class Enemy : MonoBehaviour
             }
 
         }
+
     }
 
     private void OnTriggerExit2D(Collider2D col)

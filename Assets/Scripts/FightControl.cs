@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class FightControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    //private bool pAttacked = false;
-    //private bool eAttacked = false;
+    
 
-    public int eDamage;
-    public int pDamage;
+    public int attackDist = 4;
 
-    public int attackDist = 2;
-
-    public Player player1;
-    public Player player2;
+    private Player player1;
+    private Player player2;
 
     public Enemy foe;
 
@@ -29,41 +24,23 @@ public class FightControl : MonoBehaviour
     void Start()
     {
         enemyBody.SetActive(true);
-        //player = FindObjectOfType<Player>();
-        foe = GetComponent<Enemy>();
+        foe = GetComponentInParent<Enemy>();
         maxAttackWait = attackWait;
         enemyUIData.enemyID = foe.enemyID;
         enemyUIData.showUI = false;
+
+        player1 = GameObject.FindWithTag("Player1").GetComponent<Player>();
+        player2 = GameObject.FindWithTag("Player2").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool enemyFighting = false;
-
-        if ((player1.transform.position - transform.position).magnitude <= attackDist && !player1.escaping)
-        {
-            foe.eState = EnemyState.Fighting;
-            player1.isFighting = true;
-            enemyFighting = true;
-        }
-        if ((player2.transform.position - transform.position).magnitude <= attackDist && !player2.escaping)
-        {
-            foe.eState = EnemyState.Fighting;
-            player2.isFighting = true;
-            enemyFighting = true;
-        }
-        if (!enemyFighting && foe.eState == EnemyState.Fighting)
-        {
-            foe.eState = EnemyState.Idle;
-            enemyUIData.showUI = false;
-            EventSystem.Instance.ShowEnemyUI(enemyUIData);
-        }
         if (player1.pHealth <= 0)
         {
             player1.gameObject.SetActive(false);
             player1.isFighting = false;
-            if(!player2.isFighting)
+            if (!player2.isFighting)
             {
                 foe.eState = EnemyState.Idle;
                 enemyUIData.showUI = false;
@@ -90,8 +67,16 @@ public class FightControl : MonoBehaviour
 
         if (foe.eState == EnemyState.Fighting)
         {
+            //HealthUIData newHealthData;
+            //Add food to the players count and update the UI
+            enemyUIData.eHealth = foe.eHealth;
+            enemyUIData.eMaxHealth = foe.eMaxHealth;
+
+
             enemyUIData.showUI = true;
             EventSystem.Instance.ShowEnemyUI(enemyUIData);
+
+            //EventSystem.Instance.HealthChanged(newHealthData);
             attackWait -= Time.deltaTime;
             if (attackWait <= 0f)
             {
@@ -117,41 +102,96 @@ public class FightControl : MonoBehaviour
                 em.enabled = true;
                 bled = true;
             }
-            
+
             StartCoroutine(EnemyDeathAnim());
-            
-            if(player1.isFighting && player1.gameObject.activeSelf)
+
+            if (player1.isFighting && player1.gameObject.activeSelf && player1.isFightingFoeID == foe.enemyID)
             {
-                player1.isFighting = false;
+                player1.SetFighting(false);
             }
-            if (player2.isFighting && player2.gameObject.activeSelf)
+            if (player2.isFighting && player2.gameObject.activeSelf && player2.isFightingFoeID == foe.enemyID)
             {
-                player2.isFighting = false;
+                player2.SetFighting(false);
             }
-           
+
         }
     }
 
-    void Attack (Player player, Enemy foe)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        int fightDamage;
-        fightDamage = playerRollAttack(pDamage);
-        ChangeHealth(fightDamage);
-        
-        fightDamage = foeRollAttack(eDamage);
-        player.ChangeHealth(fightDamage);
-        
+        float playerDirection = 0f;
+
+        if (collision.CompareTag("Player1"))
+        {
+            foe.eState = EnemyState.Fighting;
+            if (player1.transform.position.x < transform.position.x)
+            {
+                playerDirection = 1f;
+            }
+            else
+            {
+                playerDirection = -1f;
+            }
+            player1.SetFighting(true, playerDirection, foe.enemyID);
+            //enemyFighting = true;
+        }
+        if (collision.gameObject.tag == "Player2")
+        {
+            foe.eState = EnemyState.Fighting;
+            if (player2.transform.position.x < transform.position.x)
+            {
+                //Player is to left of enemy, scale should be 1
+                playerDirection = 1f;
+            }
+            else
+            {
+                //Player is to right of enemy, scale should be -1
+                playerDirection = -1f;
+            }
+            player2.SetFighting(true, playerDirection, foe.enemyID);
+            //enemyFighting = true;
+        }
     }
 
-    int playerRollAttack (int damage)
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player1"))
+        {
+            if (player2.isFighting == false)
+            {
+                foe.eState = EnemyState.Idle;
+            }
+        }
+        if (collision.CompareTag("Player2"))
+        {
+            if (player1.isFighting == false)
+            {
+                foe.eState = EnemyState.Idle;
+            }
+        }
+    }
+
+    void Attack(Player player, Enemy foe)
+    {
+
+        int fightDamage;
+        fightDamage = playerRollAttack(player.pMaxDamage);
+        ChangeHealth(fightDamage);
+
+
+        fightDamage = foeRollAttack(foe.eMaxDamage);
+        player.ChangeHealth(fightDamage);
+
+    }
+
+    int playerRollAttack(int damage)
     {
         int damageDone;
         damageDone = Random.Range(5, damage);
         return damageDone;
     }
 
-    int foeRollAttack (int damage)
+    int foeRollAttack(int damage)
     {
         int damageDone;
         damageDone = Random.Range(1, damage);
@@ -162,7 +202,7 @@ public class FightControl : MonoBehaviour
     {
         HealthUIData foeHealthData;
         //Add food to the players count and update the UI
-        Debug.Log("Changing health for foe");
+        //Debug.Log("Changing health for foe");
         foe.eHealth = foe.eHealth - health;
         foeHealthData.health = foe.eHealth;
         foeHealthData.playerID = foe.enemyID;
@@ -174,7 +214,7 @@ public class FightControl : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         GameObject newFood = Instantiate(RandomFoodGen.Instance.getRandomFood(), transform.position, Quaternion.identity);
-        gameObject.SetActive(false);
+        foe.gameObject.SetActive(false);
         enemyUIData.showUI = false;
         EventSystem.Instance.ShowEnemyUI(enemyUIData);
     }

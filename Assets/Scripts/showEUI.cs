@@ -17,15 +17,22 @@ public class showEUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void showHideEnemyUI (EnemyUIData eUIData)
+    public void showHideEnemyUI(EnemyUIData eUIData)
     {
-        
-        if(eUIData.enemyID == enemyID)
+
+        if (eUIData.enemyID == enemyID)
         {
+            HealthUIData newHealthData;
+            newHealthData.health = eUIData.eHealth;
+            newHealthData.playerID = eUIData.enemyID;
+            newHealthData.maxHealth = eUIData.eMaxHealth;
+
             enemyUI.SetActive(eUIData.showUI);
+
+            EventSystem.Instance.HealthChanged(newHealthData);
         }
     }
 
