@@ -63,13 +63,16 @@ MonoBehaviour:
   player2Health: 100
   p1MaxHealth: 100
   p2MaxHealth: 100
-  p1Maxdamage: 5
+  p1Maxdamage: 30
   p2Maxdamage: 30
   p1MinionCount: 0
   p2MinionCount: 0
+  p1dead: 0
+  p2dead: 0
   Levels:
   - Level1
   - Level2
+  - Level3
 --- !u!114 &8736894205219029444
 MonoBehaviour:
   m_ObjectHideFlags: 0

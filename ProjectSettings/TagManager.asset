@@ -8,6 +8,9 @@ TagManager:
   - Edge
   - Player1
   - Player2
+  - Player1GFX
+  - NewScene
+  - EndGame
   layers:
   - Default
   - TransparentFX

@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
-    
-    // LOAD LEVEL 1 SCENE
     public void PlayGame(){
     	
     	SceneManager.LoadScene("Level1");
+    }
+
+    public void QuitToWindows()
+    {
+        Application.Quit();
     }
     
 }

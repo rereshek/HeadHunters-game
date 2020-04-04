@@ -421,6 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextScene: EndGame
   nextLevelText: {fileID: 0}
+  endGameText: {fileID: 0}
   transitioned: 0
 --- !u!1 &4753528402501584805
 GameObject:

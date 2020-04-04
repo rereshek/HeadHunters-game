@@ -51,6 +51,8 @@ public class EventSystem : MonoBehaviour
     {
         if (OnFoodCollected != null)
         {
+            Debug.Log("EventSystem::FoodCollected::foodData.playerID " + foodData.playerID + " EventSystem::FoodCollected::foodData.playerID " + foodData.foodCount);
+            Debug.Log("EventSystem::OnFoodCollected.Count " + OnFoodCollected.GetInvocationList().Length);
             OnFoodCollected(foodData);
         }
     }
@@ -104,6 +106,26 @@ public class EventSystem : MonoBehaviour
         if(OnMinionUIUpdate != null)
         {
             OnMinionUIUpdate(minionUI);
+        }
+    }
+
+    public event Action<int> OnPlayerDead;
+
+    public void PlayerDead(int ID)
+    {
+        if(OnPlayerDead != null)
+        {
+            OnPlayerDead(ID);
+        }
+    }
+
+    public event Action OnPauseGame;
+
+    public void PauseGame()
+    {
+        if(OnPauseGame != null)
+        {
+            OnPauseGame();
         }
     }
 }

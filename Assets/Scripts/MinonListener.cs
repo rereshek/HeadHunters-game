@@ -12,7 +12,7 @@ public class MinonListener : MonoBehaviour
     void Start()
     {
         minion = gameObject.GetComponent<TextMeshProUGUI>();
-        minion.text = "Minions: 0";
+        //minion.text = "Minions: 0";
         EventSystem.Instance.OnMinionUIUpdate += OnMinionUpdated;
     }
 

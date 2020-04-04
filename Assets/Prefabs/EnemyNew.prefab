@@ -281,8 +281,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDist: 4
-  player1: {fileID: 8679441653237895459, guid: 77edb539997f10f4389b6bbb6d337c5a, type: 3}
-  player2: {fileID: 1109013492248870161, guid: e0d5aa3af375b834caf08b2b7b7019d1, type: 3}
   foe: {fileID: 0}
   attackWait: 1
   deathBlood: {fileID: 5262051289347528951}
@@ -398,16 +396,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c269bd33541a777428920c34c3edb28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 4959953844800330440, guid: 44f11c243a039744b84421a9a5e4afd3, type: 3}
-  player2: {fileID: 1766640534537407382, guid: e0d5aa3af375b834caf08b2b7b7019d1, type: 3}
   enemySpeed: 2
-  eHealth: 125
+  eHealth: 150
   eState: 0
   enemyID: 20
-  eMaxHealth: 125
+  eMaxHealth: 150
   distanceToP1: 0
   distanceToP2: 0
   eMaxDamage: 0
+  enemyAnim: {fileID: 0}
+  enemyGFX: {fileID: 2428944323163729558}
 --- !u!50 &2256176167779632022
 Rigidbody2D:
   serializedVersion: 4
@@ -438,6 +436,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8910700375233603895}
+  - component: {fileID: 1877298268096570202}
+  - component: {fileID: 234865835582935547}
   m_Layer: 0
   m_Name: EnemyGFX
   m_TagString: Enemy
@@ -466,6 +466,40 @@ Transform:
   m_Father: {fileID: 2256176167779632017}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1877298268096570202
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428944323163729558}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f530dbb01187aa647a2c1e08af79d16b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &234865835582935547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428944323163729558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097b551f2844b054290f18a39bf892e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Solvers:
+  - {fileID: 0}
+  m_Weight: 1
 --- !u!1 &2572292420856029204
 GameObject:
   m_ObjectHideFlags: 0

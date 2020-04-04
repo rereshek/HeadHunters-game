@@ -35,11 +35,15 @@ public class Player : MonoBehaviour
 
     public Animator playerAnim;
 
+    public bool dead;
     // Start is called before the first frame update
     void Start()
     {
+        
         hasHealed = false;
         gameObject.SetActive(true);
+        dead = false;
+     
         if (playerID == 1)
         {
             pFoodCount = GlobalDataManager.Instance.player1Food;
@@ -47,9 +51,18 @@ public class Player : MonoBehaviour
             pMaxHealth = GlobalDataManager.Instance.p1MaxHealth;
             pMaxDamage = GlobalDataManager.Instance.p1Maxdamage;
             pMinionCount = GlobalDataManager.Instance.p1MinionCount;
+            dead = GlobalDataManager.Instance.p1dead;
 
-            AddFood(0);
-            ChangeHealth(0);
+            if (dead)
+            {
+                AddFood(Mathf.FloorToInt(pFoodCount / 4) * -1);
+                ChangeHealth(Mathf.FloorToInt(pMaxHealth / 2));
+            }
+            else
+            {
+                AddFood(0);
+                ChangeHealth(0);
+            }
 
         }
         if (playerID == 2)
@@ -59,15 +72,24 @@ public class Player : MonoBehaviour
             pMaxHealth = GlobalDataManager.Instance.p2MaxHealth;
             pMaxDamage = GlobalDataManager.Instance.p2Maxdamage;
             pMinionCount = GlobalDataManager.Instance.p2MinionCount;
+            dead = GlobalDataManager.Instance.p2dead;
 
-            AddFood(0);
-            ChangeHealth(0);
+            if (dead)
+            {
+                AddFood(Mathf.FloorToInt(pFoodCount / 2) * -1);
+                ChangeHealth(Mathf.FloorToInt(pMaxHealth / 2));
+            }
+            else
+            {
+                AddFood(0);
+                ChangeHealth(0);
+            }
         }
 
         SetFighting(false);
         escaping = false;
         maxEscapingTime = escapingTime;
-
+        MinionCount(pFoodCount);
 
     }
 
@@ -76,7 +98,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-            Application.Quit();
+            EventSystem.Instance.PauseGame();
         }
         Vector2 newDirection = Vector2.zero;
 
@@ -140,6 +162,7 @@ public class Player : MonoBehaviour
                 hasHealed = true;
             }
         }
+        
     }
 
     public void AddFood(int food)
@@ -182,21 +205,23 @@ public class Player : MonoBehaviour
         
         if (playerID == 1)
         {
-            MinionCount(playerID);
+            MinionCount(pFoodCount);
             GlobalDataManager.Instance.player1Food = pFoodCount;
             GlobalDataManager.Instance.player1Health = pHealth;
             //GlobalDataManager.Instance.p1MaxHealth = pMaxHealth;
             GlobalDataManager.Instance.p1Maxdamage = pMaxDamage;
             GlobalDataManager.Instance.p1MinionCount = pMinionCount;
+            dead = GlobalDataManager.Instance.p1dead;
         }
         if (playerID == 2)
         {
-            MinionCount(playerID);
+            MinionCount(pFoodCount);
             GlobalDataManager.Instance.player2Food = pFoodCount;
             GlobalDataManager.Instance.player2Health = pHealth;
             //GlobalDataManager.Instance.p2MaxHealth = pMaxHealth;
             GlobalDataManager.Instance.p2Maxdamage = pMaxDamage;
             GlobalDataManager.Instance.p2MinionCount = pMinionCount;
+            dead = GlobalDataManager.Instance.p2dead;
         }
 
     }
@@ -230,8 +255,9 @@ public class Player : MonoBehaviour
     public void MinionCount(int foodCount)
     {
         float calculate = foodCount / 5;
-        int result = (int)Mathf.Floor(calculate);
+        int result = Mathf.FloorToInt(calculate);
         pMinionCount = result;
+        pMaxDamage += pMinionCount*2;
     }
 
     public void SetFighting(bool isPlayerFighting, float direction = 0f, int foeID = 0)
@@ -239,7 +265,6 @@ public class Player : MonoBehaviour
         Vector3 localScale = transform.localScale;
         isFighting = isPlayerFighting;
         isFightingFoeID = foeID;
-        //Debug.Log("isFighting: " + isFighting);
         StartStopFightingAnimation(isPlayerFighting);
         if (direction != 0f)
         {
@@ -253,5 +278,15 @@ public class Player : MonoBehaviour
         playerAnim.SetBool("isFighting", fighting);
     }
 
+    public void PlayerDies ()
+    {
+        pHealth = Mathf.FloorToInt(pMaxHealth/4)*3;
+        isFighting = false;
+        dead = true;
+        pFoodCount = Mathf.FloorToInt(pFoodCount / 2);
+        SaveData();
+        EventSystem.Instance.PlayerDead(playerID);
+        gameObject.SetActive(false);
+    }
     
 }

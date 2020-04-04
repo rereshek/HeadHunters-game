@@ -22,6 +22,11 @@ public class GlobalDataManager : MonoBehaviour
     public int p1MinionCount;
     public int p2MinionCount;
 
+    public bool p1dead;
+    public bool p2dead;
+
+    public float volume = 1;
+
     public List<string> Levels = new List<string>();
 
     void Awake()
@@ -35,5 +40,28 @@ public class GlobalDataManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void ResetData()
+    {
+        player1Food = 0;
+        player2Food = 0;
+
+        player1Health = 100;
+        player2Health = 100;
+
+        p1MaxHealth = 100;
+        p2MaxHealth = 100;
+
+        p1Maxdamage = 30;
+        p2Maxdamage = 30;
+
+        p1MinionCount = 0;
+        p2MinionCount = 0;
+
+        p1dead = false;
+        p2dead = false;
+
+        volume = 1;
     }
 }

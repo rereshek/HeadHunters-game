@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd78a2aba8251424ea277cb4d4efd970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
   pHealth: 82
   playerID: 2
   pMaxHealth: 100
@@ -111,9 +111,10 @@ MonoBehaviour:
   escapingTime: 2
   foodDrop: {fileID: 2586163773803075611, guid: 2466d09a28f84d0428e79f302d8c4b66,
     type: 3}
-  pMaxDamage: 5
+  pMaxDamage: 30
   pMinionCount: 0
   playerAnim: {fileID: 8164593864705699030}
+  dead: 0
 --- !u!60 &1109013492248870160
 PolygonCollider2D:
   m_ObjectHideFlags: 0

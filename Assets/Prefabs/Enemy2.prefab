@@ -306,14 +306,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c269bd33541a777428920c34c3edb28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 2
+  enemySpeed: 3
   eHealth: 250
   eState: 0
-  enemyID: 24
+  enemyID: 10
   eMaxHealth: 250
   distanceToP1: 0
   distanceToP2: 0
-  eMaxDamage: 0
+  eMaxDamage: 20
   enemyAnim: {fileID: 2927735171558576529}
   enemyGFX: {fileID: 6703960877549931934}
 --- !u!1 &6237262452470474804
@@ -785,17 +785,17 @@ PrefabInstance:
     - target: {fileID: 2902259211429044892, guid: 43ca953ec65bdf54b969a0cd45b48834,
         type: 3}
       propertyPath: PlayerID
-      value: 24
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4144779180892454158, guid: 43ca953ec65bdf54b969a0cd45b48834,
         type: 3}
       propertyPath: PlayerID
-      value: 24
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4695310010205669603, guid: 43ca953ec65bdf54b969a0cd45b48834,
         type: 3}
       propertyPath: enemyID
-      value: 24
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4818764758723758584, guid: 43ca953ec65bdf54b969a0cd45b48834,
         type: 3}

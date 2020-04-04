@@ -29,6 +29,7 @@ public class FightControl : MonoBehaviour
         enemyUIData.enemyID = foe.enemyID;
         enemyUIData.showUI = false;
 
+
         player1 = GameObject.FindWithTag("Player1").GetComponent<Player>();
         player2 = GameObject.FindWithTag("Player2").GetComponent<Player>();
     }
@@ -38,8 +39,7 @@ public class FightControl : MonoBehaviour
     {
         if (player1.pHealth <= 0)
         {
-            player1.gameObject.SetActive(false);
-            player1.isFighting = false;
+            player1.PlayerDies();
             if (!player2.isFighting)
             {
                 foe.eState = EnemyState.Idle;
@@ -49,8 +49,7 @@ public class FightControl : MonoBehaviour
         }
         if (player2.pHealth <= 0)
         {
-            player2.gameObject.SetActive(false);
-            player2.isFighting = false;
+            player2.PlayerDies();
             if (!player1.isFighting)
             {
                 foe.eState = EnemyState.Idle;
@@ -218,4 +217,5 @@ public class FightControl : MonoBehaviour
         enemyUIData.showUI = false;
         EventSystem.Instance.ShowEnemyUI(enemyUIData);
     }
+
 }

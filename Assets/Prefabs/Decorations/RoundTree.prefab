@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2016085849981134397}
   - component: {fileID: 2016085849981134395}
-  - component: {fileID: 2016085849981134396}
+  - component: {fileID: 8865500666805348015}
   m_Layer: 8
   m_Name: Round Tree Trunk
   m_TagString: Untagged
@@ -79,6 +79,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -115,8 +116,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2016085849981134396
-BoxCollider2D:
+--- !u!60 &8865500666805348015
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -138,9 +139,15 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.57, y: 1.16}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.0061768293, y: -0.5999528}
+      - {x: 0.29020452, y: -0.51450574}
+      - {x: 0.14546013, y: 0.019792438}
+      - {x: 0.13499999, y: 0.6380814}
+      - {x: -0.19732577, y: 0.6235611}
+      - {x: -0.1827215, y: -0.06781942}
+      - {x: -0.2937652, y: -0.46834302}
 --- !u!1 &2016085850152804479
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +193,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -232,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2016085850922741350}
   - component: {fileID: 2016085850922741348}
-  - component: {fileID: 2016085850922741349}
+  - component: {fileID: 1509197285969390442}
   m_Layer: 8
   m_Name: Round Tree Leaves
   m_TagString: Untagged
@@ -268,6 +276,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -304,8 +313,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2016085850922741349
-BoxCollider2D:
+--- !u!60 &1509197285969390442
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -317,7 +326,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.043982267, y: -0.72114617}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -327,6 +336,11 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5672088, y: 0.85770786}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.1038811, y: -0.57247066}
+      - {x: -0.15882277, y: -1.0806832}
+      - {x: 0.21254349, y: -1.0297238}
+      - {x: 1.0749998, y: -0.5512353}
+      - {x: 1.1614382, y: -0.13795048}
+      - {x: -1.1544186, y: -0.15507269}

@@ -10,6 +10,7 @@ public class CutScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("P1 Food: " + GlobalDataManager.Instance.player1Food);
         UpdateUI(1);
         UpdateUI(2);
         StartCoroutine(LoadLevelCo());
@@ -34,22 +35,15 @@ public class CutScene : MonoBehaviour
         {
             foodUI.foodCount = GlobalDataManager.Instance.player1Food;
             minionUI.minionCount = GlobalDataManager.Instance.p1MinionCount;
-           
-
         }
         if (playerID == 2)
         {
             foodUI.foodCount = GlobalDataManager.Instance.player2Food;
             minionUI.minionCount = GlobalDataManager.Instance.p2MinionCount;
         }
-        //Debug.Log("Food UI " + playerID + " " + foodUI.foodCount);
+        Debug.Log("Food UI::PlayerID " + foodUI.playerID + " Food UI::foodCount: " + foodUI.foodCount);
         EventSystem.Instance.UpdateMinionCount(minionUI);
         EventSystem.Instance.FoodCollected(foodUI);
-    }
-
-    IEnumerator waitAMo()
-    {
-        yield return new WaitForSeconds(2f);
     }
 
     public IEnumerator LoadLevelCo()
@@ -57,7 +51,7 @@ public class CutScene : MonoBehaviour
         string nextScene;
 
         Debug.Log("Current scene: " + SceneManager.GetActiveScene().name);
-        yield return new WaitForSecondsRealtime(18f);
+        yield return new WaitForSecondsRealtime(8f);
 
         if (GlobalDataManager.Instance.Levels.Count > 0)
         {
