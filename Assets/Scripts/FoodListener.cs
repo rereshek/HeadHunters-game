@@ -9,16 +9,10 @@ public class FoodListener : MonoBehaviour
     public TextMeshProUGUI food;
     public int playerID;
 
-    private void Awake()
-    {
-        Debug.Log("FoodListener::Awake " + playerID);
-        EventSystem.Instance.OnFoodCollected += OnFoodCollected;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        EventSystem.Instance.OnFoodCollected += OnFoodCollected;
         food = gameObject.GetComponent<TextMeshProUGUI>();
         
     }
@@ -31,10 +25,10 @@ public class FoodListener : MonoBehaviour
 
     private void OnFoodCollected(FoodUIData foodData)
     {
-        Debug.Log("Updating Food for " + playerID + " " + foodData.playerID);
+        //Debug.Log("Updating Food for " + playerID + " " + foodData.playerID);
         if (playerID == foodData.playerID)
         {
-            Debug.Log("Food name " + food.gameObject.name);
+           // Debug.Log("Food name " + food.gameObject.name);
             food.text = "Food: " + foodData.foodCount;
         }
     }
