@@ -4,10 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - Edge
+  - Player1GFX
   - Player1
   - Player2
+  - EndGame
+  - Edge
+  - Enemy
+  - NewScene
+  - PlayersDead
   layers:
   - Default
   - TransparentFX
@@ -17,8 +21,8 @@ TagManager:
   - UI
   - 
   - 
-  - Player1
-  - Player2
+  - 
+  - 
   - 
   - 
   - 
