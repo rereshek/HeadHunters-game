@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FightControl : MonoBehaviour
 {
-    
+
 
     public int attackDist = 4;
 
@@ -37,25 +37,30 @@ public class FightControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (foe.eState == EnemyState.Idle)
+        {
+            enemyUIData.showUI = false;
+            EventSystem.Instance.ShowEnemyUI(enemyUIData);
+        }
         if (player1.pHealth <= 0)
         {
-            player1.PlayerDies();
             if (!player2.isFighting)
             {
                 foe.eState = EnemyState.Idle;
                 enemyUIData.showUI = false;
                 EventSystem.Instance.ShowEnemyUI(enemyUIData);
             }
+            player1.PlayerDies();
         }
         if (player2.pHealth <= 0)
         {
-            player2.PlayerDies();
             if (!player1.isFighting)
             {
                 foe.eState = EnemyState.Idle;
                 enemyUIData.showUI = false;
                 EventSystem.Instance.ShowEnemyUI(enemyUIData);
             }
+            player2.PlayerDies();
         }
         if (foe.eHealth <= 0)
         {

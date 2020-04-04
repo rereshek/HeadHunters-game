@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1221676114039842580}
   - component: {fileID: 1403148354038559266}
   m_Layer: 0
-  m_Name: GameEndTextGO
+  m_Name: GAMEOVERTEXT
   m_TagString: EndGame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,6 +266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482101291504561656, guid: 480898de2a3aef14aa3571221b4da1c0,
+        type: 3}
+      propertyPath: m_text
+      value: You Both Died!!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 480898de2a3aef14aa3571221b4da1c0, type: 3}

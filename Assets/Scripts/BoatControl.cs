@@ -64,6 +64,7 @@ public class BoatControl : MonoBehaviour
 
     public void OnPlayerDead(int Id)
     {
+        Debug.Log("Player Dead");
         if(Id == 1)
         {
             p1Dead = true;

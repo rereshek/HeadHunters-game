@@ -11,10 +11,8 @@ public class HBUpdate : MonoBehaviour
 
     public void Start()
     {
-        healthCount = gameObject.GetComponent<TextMeshProUGUI>();
         EventSystem.Instance.OnHealthBarUpdate += OnHealthBarUpdate;
-
-
+        healthCount = gameObject.GetComponent<TextMeshProUGUI>();
     }
 
     public void OnHealthBarUpdate(HealthUIData healthUI)

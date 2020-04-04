@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -18,11 +19,13 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y, -10);
-        playerPos.x = Mathf.Clamp(player.transform.position.x, minX, maxX);
-        playerPos.y = Mathf.Clamp(player.transform.position.y, minY, maxY);
         
-        transform.position = playerPos;
+            Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+            playerPos.x = Mathf.Clamp(player.transform.position.x, minX, maxX);
+            playerPos.y = Mathf.Clamp(player.transform.position.y, minY, maxY);
+
+            transform.position = playerPos;
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

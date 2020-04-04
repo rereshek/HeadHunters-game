@@ -11,6 +11,7 @@ TagManager:
   - Player1GFX
   - NewScene
   - EndGame
+  - PlayersDead
   layers:
   - Default
   - TransparentFX

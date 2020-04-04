@@ -14,18 +14,24 @@ public class LoadScene : MonoBehaviour
 
     private GameObject nextLevelText;
     private GameObject endGameText;
+    private GameObject playersDeadText;
 
     public bool transitioned = false;
+    private bool gameOver = false;
 
     public void Start()
     {
         nextLevelText = GameObject.FindGameObjectWithTag("NewScene");
         endGameText = GameObject.FindGameObjectWithTag("EndGame");
+        playersDeadText = GameObject.FindGameObjectWithTag("PlayersDead");
 
         endGameText.gameObject.SetActive(false);
         nextLevelText.gameObject.SetActive(false);
+        playersDeadText.gameObject.SetActive(false);
 
         EventSystem.Instance.onLeavingIsland += OnLoadNextScene;
+        EventSystem.Instance.OnPlayerDead += OnPlayersDied;
+
         if (SceneManager.GetActiveScene().name != "EndGame" && SceneManager.GetActiveScene().name != "TransitionScene")
         {
             player1 = GameObject.FindWithTag("Player1").GetComponent<Player>();
@@ -61,25 +67,35 @@ public class LoadScene : MonoBehaviour
 
     public IEnumerator LoadSceneCo()
     {
-        Debug.Log("Current scene: " + SceneManager.GetActiveScene().name);
         yield return new WaitForSecondsRealtime(waitToLoad);
 
-        if (GlobalDataManager.Instance.Levels.Count != 0)
+        if (GlobalDataManager.Instance.Levels.Count == 0 || gameOver)
         {
-            Debug.Log("Loading transition from" + SceneManager.GetActiveScene().name);
+            EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
+            SceneManager.LoadScene("EndGame");
+        }
+        else if (GlobalDataManager.Instance.Levels.Count != 0)
+        {
             EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
 
             SceneManager.LoadScene("TransitionScene");
         }
-        else if (GlobalDataManager.Instance.Levels.Count == 0)
+    }
+
+    public void OnPlayersDied(int ID)
+    {
+        if ((!player1.gameObject.activeSelf && ID == 2) || (!player2.gameObject.activeSelf && ID == 1))
         {
-            Debug.Log("End game from " + SceneManager.GetActiveScene().name);
-            EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
-            SceneManager.LoadScene("EndGame");
+            //GlobalDataManager.Instance.ResetData();
+            waitToLoad = 2f;
+            gameOver = true;
+            playersDeadText.gameObject.SetActive(true);
+            StartCoroutine(LoadSceneCo());
+
         }
     }
     private void OnDestroy()
     {
-        //EventSystem.Instance.onLeavingIsland -= OnLoadNextScene;
+        EventSystem.Instance.OnPlayerDead -= OnPlayersDied;
     }
 }
