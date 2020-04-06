@@ -7,6 +7,7 @@ public class CutScene : MonoBehaviour
 {
     private FoodUIData foodUI;
     private MinionUIData minionUI;
+     private bool foodUIUpdated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,12 @@ public class CutScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       if (!foodUIUpdated)
+        {
+            UpdateUI(1);
+            UpdateUI(2);
+            foodUIUpdated = true;
+        } 
     }
 
     private void UpdateUI(int playerID)

@@ -46,6 +46,8 @@ public class FightControl : MonoBehaviour
                 enemyUIData.showUI = false;
                 EventSystem.Instance.ShowEnemyUI(enemyUIData);
             }
+            SoundManagerScript.PlaySound("dead");
+            player1.PlayerDies();
         }
         if (player2.pHealth <= 0)
         {
@@ -56,12 +58,15 @@ public class FightControl : MonoBehaviour
                 enemyUIData.showUI = false;
                 EventSystem.Instance.ShowEnemyUI(enemyUIData);
             }
+            SoundManagerScript.PlaySound("dead");
+            player2.PlayerDies();
         }
         if (foe.eHealth <= 0)
         {
             foe.eState = EnemyState.Dead;
             enemyUIData.showUI = false;
             EventSystem.Instance.ShowEnemyUI(enemyUIData);
+            SoundManagerScript.PlaySound("death");
         }
 
         if (foe.eState == EnemyState.Fighting)
@@ -79,19 +84,23 @@ public class FightControl : MonoBehaviour
             attackWait -= Time.deltaTime;
             if (attackWait <= 0f)
             {
+                SoundManagerScript.PlaySound("hit");
                 attackWait = maxAttackWait;
                 if (player1.isFighting)
                 {
+                    SoundManagerScript.PlaySound("fight");
                     Attack(player1, foe);
                 }
                 if (player2.isFighting)
                 {
+                    SoundManagerScript.PlaySound("fight");
                     Attack(player2, foe);
                 }
             }
         }
         if (foe.eState == EnemyState.Dead)
         {
+            SoundManagerScript.PlaySound("death");
             if (!bled)
             {
                 enemyBody.SetActive(false);

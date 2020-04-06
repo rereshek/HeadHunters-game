@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{689ADE9D-5FCF-5134-274F-47AC1AB6D360}</ProjectGuid>
+    <ProjectGuid>{ABCC3A24-35C6-2CC8-EA95-153D1A23A298}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -86,11 +86,7 @@
     <Compile Include="Assets\Scripts\RandomFoodGen.cs" />
     <Compile Include="Assets\Scripts\TreasureChest.cs" />
     <Compile Include="Assets\Scripts\VolumeControl.cs" />
-    <Compile Include="Assets\Scripts\destroyScript.cs" />
-    <Compile Include="Assets\Scripts\showEUI.cs" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <Compile Include="Assets\SoundManagerScript.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -107,76 +103,76 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Runtime">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.IK.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.IK.Runtime">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Triangle.Runtime">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="PsdPlugin">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Psdimporter.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.001">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Editor">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Users/bobos/Desktop/Headhunters/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/IvyData/Carleton/Second Year Courses/IMD2006/Final Game/Code/HeadHunters-game/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

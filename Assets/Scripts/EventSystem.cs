@@ -51,8 +51,6 @@ public class EventSystem : MonoBehaviour
     {
         if (OnFoodCollected != null)
         {
-            Debug.Log("EventSystem::FoodCollected::foodData.playerID " + foodData.playerID + " EventSystem::FoodCollected::foodData.playerID " + foodData.foodCount);
-            Debug.Log("EventSystem::OnFoodCollected.Count " + OnFoodCollected.GetInvocationList().Length);
             OnFoodCollected(foodData);
         }
     }
